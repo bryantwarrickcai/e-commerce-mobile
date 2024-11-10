@@ -40,19 +40,19 @@ Answer:
 
 ---
 
-**What is the use-case for `setState()`? Explain the variable that can be affected by `setState()`.**
+**Question: What is the use-case for `setState()`? Explain the variable that can be affected by `setState()`.**
 
 Answer: The `setState` function is used with stateful widgets to update the UI in response to changes in the widget's state. `setState` is commonly used for fecthing and modifying data, updating UI in response to user interactions, and updating based on animations and timers. Examples of variables that can be affected by `setState` are properties that determine display content, boolean flags, user input values, and animation progress or counter.
 
 ---
 
-**Explain the difference between `const` and `final` keyword.**
+**Question: Explain the difference between `const` and `final` keyword.**
 
 Answer: In Dart, both `const` and `final` are both used for declaring immutable/constant variables. However, `final` can be used for values that should not be reassigned, but its value is not known at runtime. An example include declaring a variable with `final currentDateTime = DateTime.now()` to set the current date and time to the `currentDateTime` variable. (This value is only created after the code runs). `const` is a compile-time constant, meaning that the value must be determined at compile time. `const` must be deeply constant, meaning that all its nested values are also constant. Example: `const pi = 3.14159;`.
 
 ---
 
-**Explain how you implemented the checklist above step-by-step.**
+**Question: Explain how you implemented the checklist above step-by-step.**
 
 Answer:
 
@@ -150,7 +150,7 @@ Answer: On this assignment, I only used `TextFormField` as the input element. Th
 
 ---
 
-**How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?**
+**Question: How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?**
 
 Answer: In Flutter applications, the theme can be set in the `ThemeData` class, and applying it using the `Theme` widget at the app's root. The theme can hold configurations such as colors, text styles, and button themes.
 
@@ -158,7 +158,7 @@ I did implement a theme in my application in the `main.dart` file. This theme se
 
 ---
 
-**How do you manage navigation in a multi-page Flutter application?**
+**Question: How do you manage navigation in a multi-page Flutter application?**
 
 Answer: In Flutter, navigation can be used using the `Navigator` widget. The `Navigator` widget arranges the pages like a stack. To navigate to a new page, we can call `Navigator.push`, which pushes a new page into the screen. To return to the previous page, we can use `Navigator.pop`.
 
