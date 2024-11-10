@@ -109,3 +109,57 @@ final List<ItemHomepage> items = [
 19. I ran `flutter run -d chrome` to ensure that the app is working properly.
 
 ---
+
+## Answers to Questions for Assignment 8
+
+---
+
+**Question: What is the purpose of `const` in Flutter? Explain the advantages of using `const` in Flutter code. When should we use `const`, and when should it not be used?**
+
+Answer: `const` is used to create compile-time constant values or widgets, meaning that the value is determined at the time the application is compiled rather than at runtime. When using `const`, we can improve performance and memory usage by reusing the same instance of constant value every time it is used in the app. Since `const` is immutable, it also ensures that the value of widget cannot be modified after its creation, improving the reliability and predictability of the app's behavior, therefore reducing the amount of bugs.
+
+`const` should be used when we know that a value will never change, building widgets that never changes and can be defined at compile-time, and when there's a need to reuse the widget several times in the project. `const` should not be used for dynamic variables and mutable widgets (widgets that are likely to have their properties change over time.)
+
+---
+
+**Question: Explain and compare the usage of Column and Row in Flutter. Provide example implementations of each layout widget!**
+
+Answer: In Flutter, `Column` and `Row` are commonly used to arrange its child widgets vertically and horizontally, respectively. `Column` is commonly used when there is a content that needs to be stacked vertically (such as a list of items, a drawer column, or an input form). `Row` is commonly used when there is content that needs to be placed side-by-side (such as buttons in the top navigation bar).
+
+List of implementations for `Column`:
+* Forms and inputs
+* List of items
+* Vertical scrolling layouts
+* Stacked widgets
+
+List of implementations for `Row`:
+* Horizontal widgets
+* Navigation buttons
+* Displaying icons with labels side-by-side
+
+---
+
+**Question: List the input elements you used on the form page in this assignment. Are there other Flutter input elements you didn't use in this assignment? Explain!**
+
+Answer: On this assignment, I only used `TextFormField` as the input element. This can be used for text inputs, with added ability of validation. Other input elements include:
+* `Checkbox` - Used to select one or more options from a set.
+* `Radio` - Used to select only one option from a group of options.
+* `DropdownButton` - Similar to `Radio`, for selecting an option from a list.
+* `Switch` - For toggling between two states (on/off).
+* `Slider` - To select a value from a range of values. Commonly used for adjusting volume, brightness, and other range-based values.
+
+---
+
+**How do you set the theme within a Flutter application to ensure consistency? Did you implement a theme in your application?**
+
+Answer: In Flutter applications, the theme can be set in the `ThemeData` class, and applying it using the `Theme` widget at the app's root. The theme can hold configurations such as colors, text styles, and button themes.
+
+I did implement a theme in my application in the `main.dart` file. This theme sets the application's primary color to deep purple and the secondary color to a lighter shade of deep purple. I also used Material Design 3 styling, which includes updated colors, shapes, and components.
+
+---
+
+**How do you manage navigation in a multi-page Flutter application?**
+
+Answer: In Flutter, navigation can be used using the `Navigator` widget. The `Navigator` widget arranges the pages like a stack. To navigate to a new page, we can call `Navigator.push`, which pushes a new page into the screen. To return to the previous page, we can use `Navigator.pop`.
+
+---
