@@ -163,3 +163,109 @@ I did implement a theme in my application in the `main.dart` file. This theme se
 Answer: In Flutter, navigation can be used using the `Navigator` widget. The `Navigator` widget arranges the pages like a stack. To navigate to a new page, we can call `Navigator.push`, which pushes a new page into the screen. To return to the previous page, we can use `Navigator.pop`.
 
 ---
+
+## Answers to Questions for Assignment 9
+
+---
+
+**Question: Explain why we need to create a model to retrieve or send JSON data. Will an error occur if we don't create a model first?**
+
+Answer: While creating a model in Flutter is not strictly required, it is still highly recommended. A model provides clear definitions for the fields and their types. Since Dart is a strongly typed language, this can help in type safety and type checking, and ensures consistency with the data. Models also help improve code readability and maintainability, as it makes it easier to understand the data that is being transmitted.
+
+Without a model, an error won't occur directly. You'd deal with the JSON data as `Map<String, dynamic>`. However, this increases the risk of runtime errors, such as trying to access non-existent fields or incorrect data types. Debugging these issues can be challenging due to no clear model defining the structure of the data.
+
+---
+
+**Question: Explain the function of the http library that you implemented for this task.**
+
+Answer: In Flutter, the `http` package is used for making HTTP requests to interact with APIs. The package provides methods for making requests such as GET, POST, PUT, DELETE, and many more. In this assignment, I used it to integrate Django's login/register account functions and the JSON data for the products.
+
+---
+
+**Question: Explain the function of `CookieRequest` and why it's necessary to share the `CookieRequest` instance with all components in the Flutter app.**
+
+Answer: In Flutter, `CookieRequest` is used to manage HTTP cookies in a Flutter app. It is typically used to maintain user authentication or session data. By sharing the `CookieRequest` instance across all components, the app ensures that every part has access to the same session cookies. This centralized approach improves security and enhances reliability.
+
+---
+
+**Question: Explain the mechanism of data transmission, from input to display in Flutter.**
+
+Answer: In Flutter, the process of data transmission can be broken down into a series of steps: user input, state management, data processing, and UI updates.
+
+In the user input stage, the user inputs their data using several user interfaces provided by Flutter, such as `TextFormField`, `Slider`, `Checkbox`, `Radio`, and many others. In the state management stage, when the user inputs data, the state of the widget holding that input must also be updated. The state is updated using the `setState()` method.
+
+In the next stage, data processing, the application may perform additional actions on the data, such as validation or formatting. The final stage, UI updates, updates the data shown in the user interface using `setState()`. Flutter uses an efficient mechanism that only rebuilds parts of the widget tree that needs updating.
+
+---
+
+**Question: Explain the authentication mechanism from login, register, to logout. Start from inputting account data in Flutter to Django's completion of the authentication process and display of the menu in Flutter.**
+
+Answer: For the registration process, the user provides their username, password, and other information in the Flutter application. Then, Flutter sends a POST request to Django for this data. In the Django application, it validates the data and creates the user. Django will respond with either a success or error, which is sent to Flutter and provides feedback to the user.
+
+For the login process, the user provides their credentials in the Flutter application. This is then sent to Django and validated using Django's built-in authentication system. If it's valid, Django will return a session ID to Flutter, which stores the token for subsequent authenticated API requests. After successful login, Flutter brings the user to the homepage.
+
+For the logout process, Flutter sends a request to Django to invalidate the session or token. After receiving a confirmation, Flutter clears the token and redirects the user back to the login screen.
+
+---
+
+**Question: Explain how you implement the checklist above step by step! (not just following the tutorial).**
+
+Answer:
+
+1. First I created a new Django app inside the `ecommerce` Django project titled `authentication`. I did it by running:
+```
+python manage.py startapp authentication
+```
+2. I added the newly created `authentication` app into the `INSTALLED_APPS` list in the `settings.py` file of the Django project.
+3. I added `django-cors-headers` to the `requirements.txt` file, and then run `pip install -r requirements.txt`.
+4. I added `corsheaders` to the `INSTALLED_APPS` list of `settings.py`.
+5. I added `corsheaders.middleware.CorsMiddleware` into the `MIDDLEWARE` list of `settings.py`.
+6. I added the following variables to `settings.py`:
+```
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
+```
+7. On the `ALLOWED_HOSTS` list of the `settings.py` file, I added `10.0.2.2`.
+8. I added a new `login` view inside the `views.py` file of the `authentication` directory.
+9. I created a new file named `urls.py` inside the `authentication` directory.
+10. I added a new URL pattern inside the `urls.py` file: `path('login/', login, name='login')`.
+11. Inside the `urls.py` file of the `e_commerce` project directory, I added the `authentication` URLs by using `path('auth/', include('authentication.urls'))`.
+12. Inside the Flutter project, I installed the `provider` and `pbp_django_auth` packages by running
+```
+flutter pub add provider
+flutter pub add pbp_django_auth
+```
+13. Inside the `main.dart` file, I modified the root widget to return `Provider`, with the original `MaterialApp` being a child of `Provider`.
+14. Inside the `screens` directory, I created a new file named `login.dart` and filled it with some code.
+15. In the `main.dart` file, I changed the `home` of the `MaterialApp` widget from `MyHomePage` to `LoginPage`.
+16. In the Django project, I added a new `register` method inside the `authentication/views.py` page.
+17. In `authentication/urls.py`, I added another path for `register`.
+18. In the `screens` folder of the Flutter project, I created a file named `register.dart`.
+19. I created a new directory inside the `lib` directory named `models`, and inside the `models` directory, I created a new file named `product.dart`.
+20. I used QuickType to generate a new model from the JSON data in the Django project. I copied this model to `product.dart`.
+21. I added the `http` package to my Flutter project by running `flutter pub add http`.
+22. Inside `android/app/src/main/AndroidManifest.xml`, I added a new line to allow the Flutter app to access the internet.
+23. Inside the `lib/screens` directory, I created a new file named `list_product.dart` and filled it with some code.
+24. I added the page `list_product.dart` as one of the list tiles into `widgets/left_drawer.dart`.
+25. On the `menu.dart` page, I made it so that pressing the `View Product List` button on the main page will redirect to `ProductPage`.
+26. Inside the `main/views.py` function in the Django project, I added a `create_product_flutter` method.
+27. I added a new path inside the `main/urls.py` file for the `create_product_flutter` method I just created.
+28. Inside the `product_form.dart`, right after the `Widget build(BuildContext context) {` line, I added the following code:
+```
+final request = context.watch<CookieRequest>();
+```
+29. I changed the code for `onPressed` for the button to add a new product.
+30. Inside the `authentication/views.py` of the Django project, I added a new view method titled `logout`.
+31. I added this `logout` view into `authentication/urls.py`.
+32. In the Flutter project, inside the `lib/widgets/product_card.dart` file, after the `Widget build(BuildContext context) {` line, I added the following line:
+```
+final request = context.watch<CookieRequest>();
+```
+33. Inside the `product_card.dart` file, I made the `onTap` to use `async`.
+34. Finally, I made the Logout button logs you out.
+
+---
