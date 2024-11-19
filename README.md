@@ -266,6 +266,9 @@ final request = context.watch<CookieRequest>();
 final request = context.watch<CookieRequest>();
 ```
 33. Inside the `product_card.dart` file, I made the `onTap` to use `async`.
-34. Finally, I made the Logout button logs you out.
+34. I made the Logout button logs you out.
+35. In the `list_product.dart` file, I made each item a button using `InkWell` so that it opens a page to view each item's details.
+36. I created a new file named `item_details_page.dart`.
+37. In that file, I created a new class called `ItemDetailPage` to display the details for each item.
 
 ---
